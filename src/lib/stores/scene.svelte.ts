@@ -83,10 +83,17 @@ class Scene {
 
 	// --- History Operations ---
 
+	private cloneElements(elements: ExcalElement[]): ExcalElement[] {
+		return elements.map((el) => ({
+			...el,
+			points: el.points ? el.points.map((p) => ({ ...p })) : undefined
+		}));
+	}
+
 	private getSnapshot(): Snapshot {
 		return {
-			elements: this.elements,
-			camera: this.camera
+			elements: this.cloneElements(this.elements),
+			camera: { ...this.camera }
 		};
 	}
 
